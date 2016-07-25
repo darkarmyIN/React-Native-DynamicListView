@@ -7,7 +7,7 @@ import {
   Text,
   TouchableHighlight
 } from 'react-native';
-var superheroArray = ["Superman","Batman","Wonder Woman","The Flash","Aquaman","Green Lantern"];
+var superheroArray = [];
 class Home extends Component {
   constructor(props) {
     super(props);
@@ -15,6 +15,14 @@ class Home extends Component {
     this.state = {
       dataSource: dataSource.cloneWithRows(superheroArray)
     }
+  }
+
+  componentDidMount() {
+    var url = "";
+    fetch(url)
+    .then(response => response.json())
+    .then(json => callback(json))
+    .catch(error => console.log(error));
   }
 
   renderRow(rowData, sectionID, rowID) {
@@ -31,7 +39,7 @@ class Home extends Component {
   render() {
 
     return(
-      <ListView dataSource={this.state.dataSource} renderRow={this.renderRow.bind(this)}>
+      <ListView dataSource={this.state.dataSource} renderRow={this.renderRow.bind(this)} enableEmptySections={true}>
       </ListView>
     );
   }
